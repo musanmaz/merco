@@ -1,0 +1,23 @@
+name: Check Folder Changes
+
+on:
+  push:
+    branches:
+      - testfk
+  workflow_dispatch:
+
+jobs:
+  check-changes:
+    runs-on: gtt-prod
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Get Current Commit
+        id: current-commit
+        run: |
+          echo "CURRENT_COMMIT=$(git log -1 --format='%H')"
+          PREVIOUS_COMMIT=$(git log -1 --format='%H' ${{ github.event.before }})
+          echo "PREVIOUS_COMMIT=$PREVIOUS_COMMIT"
+          echo "DIFF_CHECK=$(git diff-tree --no-commit-id --name-only -r $PREVIOUS_COMMIT $CURRENT_COMMIT)"
