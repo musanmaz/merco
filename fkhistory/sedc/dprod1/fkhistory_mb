@@ -1,0 +1,9 @@
+Reading installation history for PROD1MGBR (sedcmgts002mgbr sedcmgts002mgbr.destr.corpintra.net sedcmgts002mgbr)
+Package                                            - Version              - Date                - Status           - Environment - Node
+002_0_00_7_0127                                    -          v8.2.02_010 - 2022-07-12 15:03:33 - Installation: OK - prod1mgbr   - 0
+009_0_00_6_0067                                    -          v8.2.02_019 - 2023-07-20 16:35:33 - Installation: OK - prod1mgbr   - 0
+021_1_00_3_0065                                    -          v8.2.02_010 - 2023-05-09 14:40:28 - Installation: OK - prod1mgbr   - 0
+029_0_00_1_0127                                    -          v8.2.02_005 - 2022-11-08 15:02:36 - Installation: OK - prod1mgbr   - 0
+036_1_01_6_0065                                    -          v8.2.02_026 - 2023-05-09 14:40:03 - Installation: OK - prod1mgbr   - 0
+191_1_01_7_0065                                    -          v8.2.02_001 - 2022-05-10 15:04:32 - Installation: OK - prod1mgbr   - 0
+208_1_01_3_0065                                    -          v8.2.02_007 - 2023-05-09 14:40:34 - Installation: OK - prod1mgbr   - 0
