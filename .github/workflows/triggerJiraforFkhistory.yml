@@ -14,6 +14,11 @@ jobs:
       id: getfile
       run: |
         echo "::set-output name=files::$(git diff --name-only HEAD^ HEAD)"
+
+    - name: Use file list
+      run: |
+        FILES="${{ steps.getfile.outputs.files }}"
+        echo "File list: $FILES"
         
     - name: Print changed files
       run: |
