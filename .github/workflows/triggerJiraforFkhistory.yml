@@ -20,7 +20,7 @@ jobs:
           if [[ $CHANGED_FILES == *"fkhistory/fdcc/$key"* ]]; then
             echo "Setting environment variable $key to ${env_vars[$key]}"
             echo "$key=${env_vars[$key]}" >> $GITHUB_ENV
-            queryParams+="&$key=${env_vars[$key]}"
+            queryParams+="&queryParams=${env_vars[$key]}"
           fi
         done
         echo "queryParams=${queryParams:1}"
