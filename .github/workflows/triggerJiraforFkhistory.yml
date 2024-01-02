@@ -16,6 +16,7 @@ jobs:
         declare -A env_vars=( ["ddev"]="d1" ["dcons1"]="i1" ["ddev2"]="d2" ["dcons2"]="i2" ["ddev3"]="d3" ["ddev4"]="d4" ["dprod1"]="p1" )
         CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
         echo "Changed files: $CHANGED_FILES"
+        queryParams=""
         for key in ${!env_vars[@]}; do
           if [[ $CHANGED_FILES == *"fkhistory/fdcc/$key"* ]]; then
             echo "Setting environment variable $key to ${env_vars[$key]}"
@@ -23,4 +24,10 @@ jobs:
             queryParams+="&queryParams=${env_vars[$key]}"
           fi
         done
-        echo "queryParams=${queryParams:1}"
+        queryParams=${queryParams:1}
+        echo "queryParams=$queryParams" >> $GITHUB_ENV
+
+    - name: Call Jira API
+      run: |
+        RESPONSE=$(curl -s "https://gtt-jira.dot.i.mercedes-benz.com/rest/scriptrunner/latest/custom/comparelist?$queryParams")
+        echo "Response: $RESPONSE"
