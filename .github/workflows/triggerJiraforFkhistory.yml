@@ -13,7 +13,7 @@ jobs:
     - name: Get changed files
       id: getfile
       run: |
-        declare -A env_vars=( ["DEV1"]="d1" ["CONS1"]="i1" ["DEV2"]="d2" ["CON2"]="i2" ["DEV3"]="d3" ["DEV4"]="d4" ["DPROD1"]="p1" )
+        declare -A env_vars=( ["ddev"]="d1" ["dcons1"]="i1" ["ddev2"]="d2" ["dcons2"]="i2" ["ddev3"]="d3" ["ddev4"]="d4" ["dprod1"]="p1" )
         CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
         echo "Changed files: $CHANGED_FILES"
         for key in ${!env_vars[@]}; do
