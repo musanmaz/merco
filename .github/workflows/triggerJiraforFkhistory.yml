@@ -13,16 +13,10 @@ jobs:
     - name: Get changed files
       id: getfile
       run: |
-        echo "::set-output name=files::$(git diff --name-only HEAD^ HEAD)"
         CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
         echo "Changed files: $CHANGED_FILES"
-
-    - name: Use file list
-      run: |
-        FILES="${{ steps.getfile.outputs.files }}"
-        echo "File list: $FILES"
-        
-    - name: Print changed files
-      run: |
-        echo "Changed files in last commit:"
-        echo "${{ steps.getfile.outputs.files }}"
+        if [[ $CHANGED_FILES == *"fkhistory/fdcc"* ]]; then
+          echo "OK"
+        else
+          echo "Not OK"
+        fi
