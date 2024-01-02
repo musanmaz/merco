@@ -13,10 +13,12 @@ jobs:
     - name: Get changed files
       id: getfile
       run: |
+        declare -A env_vars=( ["DEV1"]="d1" ["CONS1"]="i1" ["DEV2"]="d2" ["CON2"]="i2" ["DEV3"]="d3" ["DEV4"]="d4" ["DPROD1"]="p1" )
         CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
         echo "Changed files: $CHANGED_FILES"
-        if [[ $CHANGED_FILES == *"fkhistory/fdcc"* ]]; then
-          echo "OK"
-        else
-          echo "Not OK"
-        fi
+        for key in ${!env_vars[@]}; do
+          if [[ $CHANGED_FILES == *"fkhistory/fdcc/$key"* ]]; then
+            echo "Setting environment variable $key to ${env_vars[$key]}"
+            echo "$key=${env_vars[$key]}" >> $GITHUB_ENV
+          fi
+        done
