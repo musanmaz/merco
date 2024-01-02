@@ -1,23 +1,24 @@
-name: Check Folder Changes
+name: Get Changed Files
 
 on:
   push:
     branches:
-      - testfk
-  workflow_dispatch:
+      - main
 
 jobs:
-  check-changes:
-    runs-on: gtt-prod
+  get_changed_files:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Get Current Commit
-        id: current-commit
-        run: |
-          echo "CURRENT_COMMIT=$(git log -1 --format='%H')"
-          PREVIOUS_COMMIT=$(git log -1 --format='%H' ${{ github.event.before }})
-          echo "PREVIOUS_COMMIT=$PREVIOUS_COMMIT"
-          echo "DIFF_CHECK=$(git diff-tree --no-commit-id --name-only -r $PREVIOUS_COMMIT $CURRENT_COMMIT)"
+    - name: Get Changed Files
+      id: changed_files
+      run: |
+        CHANGED_FILES=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }})
+        echo "::set-output name=changed_files::${CHANGED_FILES}"
+
+    - name: Display Changed Files
+      run: |
+        echo "Changed files: ${{ steps.changed_files.outputs.changed_files }}"
