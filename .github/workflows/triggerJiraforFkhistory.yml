@@ -1,24 +1,21 @@
-name: Get Changed Files
-
-on:
-  push:
-    branches:
-      - main
+name: List Changed Files
+on: [push]
 
 jobs:
-  get_changed_files:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Repository
+    - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
 
-    - name: Get Changed Files
-      id: changed_files
+    - name: Get changed files
+      id: getfile
       run: |
-        CHANGED_FILES=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }})
-        echo "::set-output name=changed_files::${CHANGED_FILES}"
-
-    - name: Display Changed Files
+        echo "::set-output name=files::$(git diff --name-only HEAD^ HEAD)"
+        
+    - name: Print changed files
       run: |
-        echo "Changed files: ${{ steps.changed_files.outputs.changed_files }}"
+        echo "Changed files in last commit:"
+        echo "${{ steps.getfile.outputs.files }}"
