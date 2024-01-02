@@ -14,6 +14,8 @@ jobs:
       id: getfile
       run: |
         echo "::set-output name=files::$(git diff --name-only HEAD^ HEAD)"
+        CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+        echo "Changed files: $CHANGED_FILES"
 
     - name: Use file list
       run: |
